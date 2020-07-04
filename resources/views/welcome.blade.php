@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Fitri Lestari
                 </div>
 
                 <div class="links">
