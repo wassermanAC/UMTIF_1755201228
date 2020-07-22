@@ -21,4 +21,4 @@ Route::get('foo', function () {
     return 'Hello World';
 });
 
-Route::get('mhs', 'MahasiswaController@index');
+Route::get('mahasiswa', 'MahasiswaController@index');
