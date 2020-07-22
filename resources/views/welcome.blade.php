@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Fitri Lestari
+                    FITRI LESTARI
                 </div>
 
                 <div class="links">
