@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mahasiswa;
+use DataTables;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
@@ -16,6 +17,14 @@ class MahasiswaController extends Controller
     {
         //return "Halaman Index Mahasiswa";
         return view('mahasiswa.index'); //mahasiswa->index.blade.php
+    }
+
+    public function mhs_list()
+    {
+        return Datatables::of(Mahasiswa::all())
+                ->removeColumn('id')
+                ->addIndexColumn()
+                ->make(true);
     }
 
     /**
