@@ -17,12 +17,12 @@
 <body>
 	@include('layouts.navbar')
 
-	<div class="container.fluid">
-		<div class="row mt-4">
-			<div class="col-md-2">
+	<div class="container-fluid">
+		<div class="row mt-2">
+			<div class="col-md-3">
 				@include('layouts.sidebar')
 			</div>
-			<div class="col-md-10">
+			<div class="col-md-9">
 				@include('layouts.breadcrumb')
 				@yield('content')
 			</div>
