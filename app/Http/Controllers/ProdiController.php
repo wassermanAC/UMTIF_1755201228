@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Prodi;
+use App\Mahasiswa;
+use DataTables;
 use Illuminate\Http\Request;
 
 class ProdiController extends Controller
@@ -14,8 +16,23 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $list_prodi = Prodi::all();
-        return view('prodi.index', compact('list_prodi'));
+        // $list_prodi = Prodi::all();
+        // return view('prodi.index', compact('list_prodi'));
+
+        return view('prodi.index');
+    }
+
+   public function prodi_list()
+    {
+        $prodi = Prodi::all();
+        return Datatables::of($prodi)
+            ->addIndexColumn()
+            ->addColumn('action', function ($prodi) {
+                $action = '<a class="text-primary" href="/prodi/edit/'.$prodi->kode_prodi.'">Edit</a>';
+                $action .= ' | <a class="text-danger" href="/prodi/delete/'.$prodi->kode_prodi.'">Hapus</a>';
+                return $action;
+            })
+            ->make(true);
     }
 
     /**
@@ -25,7 +42,8 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        $prodi = Prodi::all();
+        return view('prodi.create', compact('prodi'));
     }
 
     /**
@@ -36,7 +54,14 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_prodi' => 'required',
+            'nama_prodi' => 'required',
+        ]);
+
+        Prodi::create($request->all());
+        return redirect()->route('prodi.index')
+                        ->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -56,9 +81,10 @@ class ProdiController extends Controller
      * @param  \App\Prodi  $prodi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Prodi $prodi)
+    public function edit(Prodi $prodi, $kode_prodi)
     {
-        //
+        $prodi = Prodi::find($kode_prodi);
+        return view ('prodi.edit', compact('prodi'));
     }
 
     /**
@@ -70,7 +96,14 @@ class ProdiController extends Controller
      */
     public function update(Request $request, Prodi $prodi)
     {
-        //
+        $request->validate([
+            'nama_prodi' => 'required',
+        ]);
+
+        $prodi->update($request->all());
+
+        return redirect()->route('prodi.index')
+                        ->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -81,6 +114,9 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        $prodi->delete();
+
+        return redirect()->route('prodi.index')
+                        ->with('success', 'Data berhasil dihapus');
     }
 }

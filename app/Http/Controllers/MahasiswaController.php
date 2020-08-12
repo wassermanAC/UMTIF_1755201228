@@ -17,6 +17,7 @@ class MahasiswaController extends Controller
     public function index()
     {
         //return "Halaman Index Mahasiswa";
+        
         return view('mahasiswa.index'); //mahasiswa->index.blade.php
     }
 
@@ -79,10 +80,10 @@ class MahasiswaController extends Controller
      * @param  \App\Mahasiswa  $mahasiswa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $mahasiswa, $id)
+    public function edit(Mahasiswa $mahasiswa, $nim)
     {
         $prodi = Prodi::all();
-        $mhs = Mahasiswa::find($id);
+        $mhs = Mahasiswa::find($nim);
         return view('mahasiswa.edit', compact('prodi', 'mhs'));
     }
 
